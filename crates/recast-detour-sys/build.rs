@@ -28,7 +28,7 @@ fn main() {
             Ok(())
         }
 
-        let dst = cmake::Config::new("recast").cxxflag("-stdlib=libc++").build();
+        let dst = cmake::build("recast");
 
         println!("cargo:rerun-if-changed={}", "build.rs");
         let _ = print_dirs(Path::new("recast"));
