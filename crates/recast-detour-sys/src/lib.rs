@@ -57,15 +57,19 @@ pub struct RecastPathInput {
 
 #[repr(C)]
 pub struct RecastPathResult {
-    pub path: [u32; 100],
+    pub path: [u32; 1024],
+    pub path2: [f32; 2048 * 3],
     pub path_count: u32,
+    pub path2_count: u32,
 }
 
 impl Default for RecastPathResult {
     fn default() -> RecastPathResult {
         RecastPathResult {
-            path: [0; 100],
+            path: [0; 1024],
+            path2: [0.0; 2048 * 3],
             path_count: 0,
+            path2_count: 0,
         }
     }
 }

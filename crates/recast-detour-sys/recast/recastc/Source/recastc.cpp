@@ -134,7 +134,7 @@ extern "C"
 		}
 
 		auto q = dtAllocNavMeshQuery();
-		status = q->init(mesh, 1000);
+		status = q->init(mesh, 4096);
 		if (dtStatusFailed(status))
 		{
 			dtFreeNavMeshQuery(q);
@@ -278,8 +278,6 @@ extern "C"
 
 		int count = 0;
 
-		assert(sizeof(result->path) / sizeof(uint32_t) == 100);
-				
 		dtStatus status = query->q->findPath(
 			input->start_poly, 
 			input->end_poly, 
@@ -292,6 +290,19 @@ extern "C"
 		);
 		
 		result->path_count = count;
+
+		float straight_path[2048 * 3];
+		unsigned char straight_path_flags[2048];
+
+		int n_straight_polys;
+		dtPolyRef straight_path_polys[2048];
+
+		if (count) {
+			status = query->q->findStraightPath(input->start_pos, input->end_pos, result->path, count, result->path2, straight_path_flags, straight_path_polys, &n_straight_polys, 2048, DT_STRAIGHTPATH_AREA_CROSSINGS);
+			result->path2_count = n_straight_polys;
+		}
+
+
 		if (dtStatusFailed(status))
 		{
 			RETURN_ERROR("FAIL_TO_FIND_PATH");

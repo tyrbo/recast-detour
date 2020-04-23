@@ -28,6 +28,8 @@ fn main() {
             Ok(())
         }
 
+        println!("cargo:rustc-flags=-l dylib=stdc++");
+
         let dst = cmake::build("recast");
 
         println!("cargo:rerun-if-changed={}", "build.rs");

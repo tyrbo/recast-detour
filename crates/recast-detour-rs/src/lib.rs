@@ -218,19 +218,16 @@ impl RecastQuery {
             return Err(Error::FindPathError(error));
         }
 
-        let path = &result.path[0..result.path_count as usize];        
+        let path = &result.path2[0..(result.path2_count * 3) as usize];
 
         match path.len() {
             0 => Err(Error::FindPathError("No Path".to_string())),
             // Same Poly, so just return the next point
             1 => Ok(vec![end_p]),
             _ => {
-                // remap the poly and the points
                 let mut res = vec![];
-                let mut p = start_p;
-                for &poly in path.iter() {                    
-                    p = self.find_closest(p, poly)?;                                                   
-                    res.push(p);
+                for (i, _) in path.iter().enumerate().step_by(3) {                    
+                    res.push((path[i], path[i + 1], path[i + 2]).into());
                 }
 
                 Ok(res)

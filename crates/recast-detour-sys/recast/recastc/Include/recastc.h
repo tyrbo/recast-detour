@@ -47,8 +47,10 @@ extern "C"
     } recastc_PathInput;
 
     typedef struct {
-        uint32_t path[100];        
+        uint32_t path[1024];        
+        float path2[2048 * 3];
         uint32_t path_count;
+        uint32_t path2_count;
     } recastc_PathResult;
 
     typedef struct {
