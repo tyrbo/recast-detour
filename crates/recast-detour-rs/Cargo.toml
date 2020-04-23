@@ -5,8 +5,8 @@ authors = ["Edwin Cheng <edwin0cheng@gmail.com>"]
 edition = "2018"
 description = "A simplified (detour only) rust binding for Recast & Detour library"
 exclude = ["recast/build/*"]
-homepage = "https://github.com/edwin0cheng/recast-detour"
-repository = "https://github.com/edwin0cheng/recast-detour"
+homepage = "https://github.com/tyrbo/recast-detour"
+repository = "https://github.com/tyrbo/recast-detour"
 license = "MIT"
 
 [dev-dependencies]
