@@ -5,6 +5,7 @@
 
 #include <memory>
 #include <assert.h>
+#include <cstring>
 
 struct recastc_Query
 {
