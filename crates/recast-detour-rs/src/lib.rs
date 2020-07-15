@@ -2,6 +2,7 @@ use std::ffi::CStr;
 use std::os::raw::c_void;
 use std::ptr;
 use std::collections::HashMap;
+use thiserror::Error as ThisError;
 
 mod nav_obj;
 
@@ -18,11 +19,18 @@ impl Drop for RecastQuery {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, ThisError)]
 pub enum Error {
+    #[error("error creating query: `{0}`")]
     CreateQueryError(String),
+
+    #[error("error finding point: `{0}`")]
     FindPointError(String),
+
+    #[error("error finding path: `{0}`")]
     FindPathError(String),
+
+    #[error("partial result")]
     PartialResult
 }
 
