@@ -190,7 +190,7 @@ impl RecastQuery {
         Ok(RecastQuery { q })
     }
 
-    pub fn find_path(&self, start: Point, end: Point, r: f32) -> Result<Vec<Point>> {
+    pub fn find_path(&self, start: Point, end: Point, r: (f32, f32, f32)) -> Result<Vec<Point>> {
         let (start_p, start_poly) = self.find_poly(start, r)?;
         let (end_p, end_poly) = self.find_poly(end, r)?;
 
@@ -267,13 +267,13 @@ impl RecastQuery {
         }
     }
 
-    pub fn find_poly(&self, pos: Point, r: f32) -> Result<(Point, u32)> {
+    pub fn find_poly(&self, pos: Point, r: (f32, f32, f32)) -> Result<(Point, u32)> {
         let mut result = sys::RecastNearestPolyResult::default();
         let mut err = sys::RecastNavError::zeros();
 
         let input = sys::RecastNearestPolyInput {
             center: pos.0,
-            half_extents: [r, r, r],
+            half_extents: [r.0, r.1, r.2],
         };
 
         let res = unsafe {
@@ -356,7 +356,7 @@ mod tests {
 
         let q = RecastQuery::new_from_mesh(mesh).unwrap();
         let p = q
-            .find_path((0.2, 0.1, 0.4).into(), (0.8, 0.1, 0.5).into(), 0.2)
+            .find_path((0.2, 0.1, 0.4).into(), (0.8, 0.1, 0.5).into(), (0.2, 0.2, 0.2))
             .unwrap();
 
         assert_debug_snapshot_matches!(p, @r###"[

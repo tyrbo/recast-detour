@@ -48,7 +48,7 @@ mod tests {
 
         let q = RecastQuery::new_from_mesh(mesh).unwrap();
         let p = q
-            .find_path((0.2, 0.1, 0.4).into(), (0.8, 0.1, 0.5).into(), 0.2)
+            .find_path((0.2, 0.1, 0.4).into(), (0.8, 0.1, 0.5).into(), (0.2, 0.2, 0.2))
             .unwrap();
 
         assert_debug_snapshot_matches!(p, @r###"Point(

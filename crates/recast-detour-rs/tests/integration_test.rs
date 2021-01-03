@@ -89,7 +89,7 @@ fn test_integration() {
         dbg!((i, j, p0, p1));
 
         let path = q
-            .find_path(p0, p1, 0.5)
+            .find_path(p0, p1, (0.5, 0.5, 0.5))
             .map_err(|err| {
                 panic!("Failed to find_path, i: {:#?} j: {:#?} {:#?}", i, j, err);
             })
@@ -109,7 +109,7 @@ fn test_unstable_findpoint() {
         let r = NavObjFile::open(Path::new("tests/data/simplenav_hold.obj")).unwrap();                        
         let q = RecastQuery::new_from_mesh(r.data).unwrap();
 
-        q.find_poly(Point::new((-6.6666665, 0.08333433, -6.6666665)), 0.4)
+        q.find_poly(Point::new((-6.6666665, 0.08333433, -6.6666665)), (0.4, 0.4, 0.4))
             .unwrap();
     }
 }
